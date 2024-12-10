@@ -5,16 +5,27 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
+import com.example.try10.databinding.ActivitySongsListBinding
+import com.example.try10.models.CategoryModel
 
 class SongsListActivity : AppCompatActivity() {
+    companion object{
+        lateinit var category:CategoryModel
+    }
+    lateinit var  binding:ActivitySongsListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding=ActivitySongsListBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_songs_list)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+
         }
+        binding.nameTextView.text= category.name
+        Glide.with(binding.coverImageView).load(category.coverUrl).into(binding.coverImageView)
     }
 }
