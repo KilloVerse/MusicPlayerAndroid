@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.try10.databinding.ActivityMainBinding
+import com.bumptech.glide.Glide
 import com.example.try10.databinding.CategoryItemRecyclerRowBinding
 import com.example.try10.models.CategoryModel
 
@@ -13,6 +14,7 @@ class CategoryAdapter(private val categoryList:List<CategoryModel>):
         RecyclerView.ViewHolder(binding.root){
         fun binData(category:CategoryModel){
             binding.nameTextView.text=category.name
+            Glide.with(binding.coverImageView).load(category.coverUrl).into(binding.coverImageView)
         }
     }
 
