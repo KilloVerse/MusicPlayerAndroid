@@ -3,13 +3,26 @@ package com.example.try10.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.try10.SongsListActivity
 import com.example.try10.databinding.SongListItemRecyclerRowBinding
+import com.example.try10.models.SongModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SongsListAdapter(private val songIdList:List<String>):
     RecyclerView.Adapter<SongsListAdapter.MyViewHolder>() {
     class MyViewHolder(private val binding:SongListItemRecyclerRowBinding):RecyclerView.ViewHolder(binding.root){
         fun bindingData(songId:String){
-            binding.songTitleTextView.text=songId
+            FirebaseFirestore.getInstance().collection("songs")
+                .document(songId).get()
+                .addOnSuccessListener {
+                    val song= it.toObject(SongModel::class.java)
+                    song?.apply {
+                        binding.songTitleTextView.text=title
+                        binding.songSubtitleTextView.text=subtitle
+                        Glide.with(binding.songCoverImageView).load(coverUrl)
+                    }
+                }
 
         }
     }
