@@ -1,5 +1,6 @@
 package com.example.try10.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class CategoryAdapter(private val categoryList:List<CategoryModel>):
         fun binData(category:CategoryModel){
             binding.nameTextView.text=category.name
             Glide.with(binding.coverImageView).load(category.coverUrl).into(binding.coverImageView)
+            Log.i("SONGS",category.songs.size.toString())
         }
     }
 
