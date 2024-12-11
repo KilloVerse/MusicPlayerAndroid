@@ -38,8 +38,14 @@ class PlayerActivity : AppCompatActivity() {
             Glide.with(binding.songGifImageView).load(R.drawable.media_playing).circleCrop().into(binding.songGifImageView)
             exoPlayer=MyExoplayer.getInstance()!!
             binding.playerView.player=exoPlayer
+            binding.playerView.showController()
             exoPlayer.addListener(playerListener)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer?.removeListener(playerListener)
     }
     fun showGif(show:Boolean){
         if(show)
