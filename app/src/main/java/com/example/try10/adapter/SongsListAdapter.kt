@@ -1,10 +1,12 @@
 package com.example.try10.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.try10.MyExoplayer
+import com.example.try10.PlayerActivity
 import com.example.try10.SongsListActivity
 import com.example.try10.databinding.SongListItemRecyclerRowBinding
 import com.example.try10.models.SongModel
@@ -24,6 +26,7 @@ class SongsListAdapter(private val songIdList:List<String>):
                         Glide.with(binding.songCoverImageView).load(coverUrl).into(binding.songCoverImageView)
                         binding.root.setOnClickListener{
                             MyExoplayer.startPlaying(binding.root.context,song)
+                            it.context.startActivity(Intent(it.context,PlayerActivity::class.java))
                         }
                     }
                 }
